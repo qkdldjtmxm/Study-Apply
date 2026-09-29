@@ -12,6 +12,10 @@ COLORS
     --green: #00a2af;
     --grey: #333;
     --white: #fff;
+
+    /* 다크 모드 전환용 변수 */
+    --bg : #fff;
+    --text : #333;
 }
 
 /*
@@ -62,10 +66,37 @@ html {
 
 body {
     /* 전체 글자 색상  */
-	color: var(--grey);
+    background: var(--bg);
+	color: var(--text);
 	font-family:  "Noto Sans KR", sans-serif;
+    transition: background 0.3s, color 0.3s;
 }
 
+/* 다크모드
+================================================ */
+/* 다크 모드 : body에 dark 클래스가 붙으면 변수 값이 바뀜.  */
+body.dark {
+    --bg : #17181c;
+    --text : #e8e8ea;
+}
+/* 다크모드 버튼 */
+.btn-theme {
+    position: fixed;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 3;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: var(--grey);
+    font-size: 1.25rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+}
+
+body.dark .btn-theme {
+    background: var(--yellow);
+}
 
 /*
 HEADER
@@ -136,14 +167,16 @@ MAIN
     background-color: #4db1ec;
     background-image: url('../images/hero01.png');
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center;    
     background-size: cover;
     background-blend-mode:screen;
     height: 100vh;
+    color: var(--grey); /* 다크 모드에서도 글자 어둡게 유지 */
     animation: bg-color 24s infinite;  /* @keyframes bg-color 설정해야 나옴. */
 
     display: flex;
     align-items: center;
+    justify-content: center;
     clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
 
 }
@@ -194,6 +227,27 @@ MAIN
 
 #main p {
     text-align: center;
+}
+
+/* 디지털 시계 */
+.clock {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.clock-time {
+    display: block;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1rem;
+    letter-spacing: .1em;
+    font-variant-numeric: tabular-nums;  /* 숫자 폭을 같게 해서 흔들림 방지 */
+}
+
+.clock-date {
+    display: block;      /* 시각 위에 한 줄을 차지하도록 */
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1em;
+    margin-bottom: .25rem;
 }
 
 /*
@@ -316,11 +370,27 @@ APPLY
     width: 100%;
     margin-bottom: 1.5rem;
     font-family: inherit;
+    color: var(--grey);
 }
 
 .apply-textarea {
     min-height: 6rem;
     resize: vertical;
+    margin-bottom: .2rem;
+    color: var(--grey);
+}
+
+/* 글자 수 표시 */
+.char-count {
+    margin-bottom: 1.5rem;
+    color: var(--white);
+    text-align: right;
+    font-size: .875rem
+}
+
+.char-count.warn {
+    color: var(--grey);
+    font-weight: 700;
 }
 
 .apply-btn {
